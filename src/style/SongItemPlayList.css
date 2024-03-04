@@ -159,4 +159,14 @@ p {
   .play-list .song-item:first-child {
     border-top: none;
   }
+  body {
+    margin: auto;
+    max-width: 750px;
+    padding-top: 0;
+  }
+
+  .media-player {
+    display: flex;
+    flex-direction: row;
+  }
 }

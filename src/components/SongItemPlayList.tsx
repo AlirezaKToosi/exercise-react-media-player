@@ -1,6 +1,6 @@
-import "../style/SongItemPlayList.css";
+import { useState } from "react";
 
-interface ISongItemPlayList {
+interface ISongsPlayList {
   name: string;
   artist: string;
   album: string;
@@ -8,19 +8,37 @@ interface ISongItemPlayList {
   file: string;
 }
 
-export default function SongItemPlayList(props: ISongItemPlayList) {
+interface Props {
+  song: ISongsPlayList;
+  onSelect: (song: ISongsPlayList) => void;
+}
+
+export default function SongItemPlayList({ song, onSelect }: Props) {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlayClick = () => {
+    setIsPlaying(!isPlaying);
+    onSelect(song); 
+  };
+
   return (
     <>
       <section className="play-list" id="playlist-view">
         <article className="song-item">
           <figure>
-            <img src={"assets/" + props.image} alt={props.album}></img>
+            <img src={"assets/" + song.image} alt={song.album}></img>
           </figure>
           <div className="song-info">
-            <p className="upper-text"> {props.name} </p>
-            <p className="lower-text"> {props.artist} </p>
+            <p className="upper-text"> {song.name} </p>
+            <p className="lower-text"> {song.artist} </p>
           </div>
-          <span className="material-icons play" style={{cursor:"pointer"}}> play_circle </span>
+          <span
+            className="material-icons play"
+            style={{ cursor: "pointer" }}
+            onClick={handlePlayClick}
+          >
+            {isPlaying ? "pause_circle" : "play_circle"}
+          </span>
         </article>
       </section>
     </>
